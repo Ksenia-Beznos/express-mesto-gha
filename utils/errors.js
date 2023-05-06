@@ -1,5 +1,5 @@
 function validationErrors(err, res) {
-  const errors = { message: "" };
+  const errors = { message: '' };
 
   Object.keys(err.errors).forEach((key) => {
     errors.message = err.errors[key].message;

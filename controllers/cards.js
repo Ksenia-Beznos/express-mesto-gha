@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const { validationErrors } = require("../utils/errors");
+const { validationErrors } = require('../utils/errors');
 
 const getCards = async (req, res) => {
   try {
@@ -27,7 +27,11 @@ const createCard = async (req, res) => {
 const deleteCard = async (req, res) => {
   try {
     const { id } = req.params;
-    const card = await Card.findById(id);
+    const card = await Card.findByIdAndRemove(id);
+    if (!card) {
+      res.status(404).send({ message: 'Карточка не найдена' });
+      return;
+    }
     res.send(card);
   } catch (err) {
     if (err.name === 'CastError') {
@@ -46,6 +50,10 @@ const addLike = async (req, res) => {
       { $addToSet: { likes: req.user._id } },
       { new: true },
     );
+    if (!card) {
+      res.status(404).send({ message: 'Карточка не найдена' });
+      return;
+    }
     res.send(card);
   } catch (err) {
     if (err.name === 'CastError') {
@@ -64,6 +72,10 @@ const removeLike = async (req, res) => {
       { $pull: { likes: req.user._id } },
       { new: true },
     );
+    if (!card) {
+      res.status(404).send({ message: 'Карточка не найдена' });
+      return;
+    }
     res.send(card);
   } catch (err) {
     if (err.name === 'CastError') {
