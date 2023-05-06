@@ -1,11 +1,12 @@
-const User = require('../models/user');
+const User = require("../models/user");
+const { validationErrors } = require("../utils/errors");
 
 const getUsers = async (req, res) => {
   try {
     const users = await User.find({});
     res.send(users);
   } catch (err) {
-    res.status(500).send({ message: 'Ошибка на сервере' });
+    res.status(500).send({ message: "Ошибка на сервере" });
   }
 };
 
@@ -14,12 +15,12 @@ const getUserById = async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(id);
     if (!user) {
-      res.status(404).send({ message: 'Пользователь не найден' });
+      res.status(404).send({ message: "Пользователь не найден" });
       return;
     }
     res.send(user);
   } catch (err) {
-    res.status(404).send({ message: 'Пользователь не найден' });
+    res.status(404).send({ message: "Пользователь не найден" });
   }
 };
 
@@ -29,10 +30,10 @@ const createUser = async (req, res) => {
     const user = await User.create({ name, about, avatar });
     res.status(201).send(user);
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).send({ message: err.errors.name.message });
+    if (err.name === "ValidationError") {
+      validationErrors(err, res);
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "Ошибка на сервере" });
     }
   }
 };
@@ -43,16 +44,16 @@ const updateUser = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.user._id,
       { name, about },
-      { new: true, runValidators: true },
+      { new: true, runValidators: true }
     );
     res.send(user);
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).send({ message: err.errors.name.message });
-    } else if (err.name === 'CastError') {
-      res.status(400).send({ message: 'Некорректные данные' });
+    if (err.name === "ValidationError") {
+      validationErrors(err, res);
+    } else if (err.name === "CastError") {
+      res.status(400).send({ message: "Некорректные данные" });
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "Ошибка на сервере" });
     }
   }
 };
@@ -63,16 +64,16 @@ const updateAvatar = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.user._id,
       { avatar },
-      { new: true, runValidators: true },
+      { new: true, runValidators: true }
     );
     res.send(user);
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).send({ message: err.errors.name.message });
-    } else if (err.name === 'CastError') {
-      res.status(400).send({ message: 'Некорректные данные' });
+    if (err.name === "ValidationError") {
+      validationErrors(err, res);
+    } else if (err.name === "CastError") {
+      res.status(400).send({ message: "Некорректные данные" });
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "Ошибка на сервере" });
     }
   }
 };
