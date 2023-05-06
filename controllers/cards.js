@@ -6,7 +6,7 @@ const getCards = async (req, res) => {
     const cards = await Card.find({});
     res.send(cards);
   } catch (err) {
-    res.status(500).send({ message: 'Ошибка на сервере' });
+    res.status(500).send({ message: "На сервере произошла ошибка" });
   }
 };
 
@@ -19,7 +19,7 @@ const createCard = async (req, res) => {
     if (err.name === 'ValidationError') {
       validationErrors(err, res);
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "На сервере произошла ошибка" });
     }
   }
 };
@@ -37,7 +37,7 @@ const deleteCard = async (req, res) => {
     if (err.name === 'CastError') {
       res.status(400).send({ message: 'Некорректные данные' });
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "На сервере произошла ошибка" });
     }
   }
 };
@@ -59,7 +59,7 @@ const addLike = async (req, res) => {
     if (err.name === 'CastError') {
       res.status(400).send({ message: 'Некорректные данные' });
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "На сервере произошла ошибка" });
     }
   }
 };
@@ -81,7 +81,7 @@ const removeLike = async (req, res) => {
     if (err.name === 'CastError') {
       res.status(400).send({ message: 'Некорректные данные' });
     } else {
-      res.status(500).send({ message: 'Ошибка на сервере' });
+      res.status(500).send({ message: "На сервере произошла ошибка" });
     }
   }
 };
