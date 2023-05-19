@@ -1,6 +1,6 @@
-const Card = require("../models/card");
-const Error404 = require("../errors/404");
-const Error403 = require("../errors/403");
+const Card = require('../models/card');
+const Error404 = require('../errors/404');
+const Error403 = require('../errors/403');
 
 const getCards = async (req, res, next) => {
   try {
@@ -16,7 +16,7 @@ const createCard = async (req, res, next) => {
     const { name, link } = req.body;
     const card = await Card.create({ name, link, owner: req.user._id });
     if (!card) {
-      throw new Error404("Карточка не создана");
+      throw new Error404('Карточка не создана');
     } else {
       res.status(201).send(card);
     }
@@ -30,16 +30,16 @@ const deleteCard = async (req, res, next) => {
     const { id } = req.params;
     const card = await Card.findByIdAndRemove(id);
     if (!card) {
-      throw new Error404("Карточка не найдена");
+      throw new Error404('Карточка не найдена');
     }
 
     if (card.owner.toString() !== id) {
-      throw new Error403("Нет прав на удаление карточки");
+      throw new Error403('Нет прав на удаление карточки');
     }
 
     await Card.findByIdAndRemove(id);
 
-    res.send({ message: "Карточка удалена" });
+    res.send({ message: 'Карточка удалена' });
   } catch (err) {
     next(err);
   }
@@ -51,10 +51,10 @@ const addLike = async (req, res, next) => {
     const card = await Card.findByIdAndUpdate(
       id,
       { $addToSet: { likes: req.user._id } },
-      { new: true }
+      { new: true },
     );
     if (!card) {
-      throw new Error404("Карточка не найдена");
+      throw new Error404('Карточка не найдена');
     }
     res.send(card);
   } catch (err) {
@@ -68,10 +68,10 @@ const removeLike = async (req, res, next) => {
     const card = await Card.findByIdAndUpdate(
       id,
       { $pull: { likes: req.user._id } },
-      { new: true }
+      { new: true },
     );
     if (!card) {
-      throw new Error404("Карточка не найдена");
+      throw new Error404('Карточка не найдена');
     }
     res.send(card);
   } catch (err) {
