@@ -1,13 +1,26 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const { celebrate } = require("celebrate");
+const auth = require("../middlewares/auth");
 
 const {
-  getCards, createCard, deleteCard, addLike, removeLike,
-} = require('../controllers/cards');
+  getCards,
+  createCard,
+  deleteCard,
+  addLike,
+  removeLike,
+} = require("../controllers/cards");
 
-router.get('/cards', getCards);
-router.post('/cards', createCard);
-router.delete('/cards/:id', deleteCard);
-router.put('/cards/:id/likes', addLike);
-router.delete('/cards/:id/likes', removeLike);
+const { cardValidationId, cardValidation } = require("../utils/joiSchemes");
+
+router.get("/cards", auth, getCards);
+router.post("/cards", auth, celebrate(cardValidation), createCard);
+router.delete("/cards/:id", auth, celebrate(cardValidationId), deleteCard);
+router.put("/cards/:id/likes", auth, celebrate(cardValidationId), addLike);
+router.delete(
+  "/cards/:id/likes",
+  auth,
+  celebrate(cardValidationId),
+  removeLike
+);
 
 module.exports = router;

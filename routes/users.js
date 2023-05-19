@@ -1,4 +1,6 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const { celebrate } = require("celebrate");
+const auth = require("../middlewares/auth");
 
 const {
   getUsers,
@@ -6,12 +8,23 @@ const {
   createUser,
   updateUser,
   updateAvatar,
-} = require('../controllers/users');
+  login,
+  getAboutMe,
+} = require("../controllers/users");
 
-router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
-router.post('/users', createUser);
-router.patch('/users/me', updateUser);
-router.patch('/users/me/avatar', updateAvatar);
+const { userValidation, userUpdateValidation } = require("../utils/joiSchemes");
+
+router.post("/signup", celebrate(userValidation), createUser);
+router.post("/signin", celebrate(userValidation), login);
+router.get("/users", auth, getUsers);
+router.get("/users/me", auth, getAboutMe);
+router.get("/users/:id", auth, celebrate(userValidation), getUserById);
+router.patch("/users/me", auth, celebrate(userUpdateValidation), updateUser);
+router.patch(
+  "/users/me/avatar",
+  auth,
+  celebrate(userUpdateValidation),
+  updateAvatar
+);
 
 module.exports = router;
