@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,14 +21,12 @@ const userSchema = new mongoose.Schema(
 
     name: {
       type: String,
-      required: true,
       default: "Жак-Ив Кусто",
       minlength: [2, "минимальное кол-во символов - 2"],
       maxlength: [30, "максимальное кол-во символов - 30"],
     },
     about: {
       type: String,
-      required: true,
       default: "Исследователь",
       minlength: [2, "минимальное кол-во символов - 2"],
       maxlength: [30, "максимальное кол-во символов - 30"],
@@ -46,4 +44,6 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model('User', userSchema);
+// в официальной документации название схемы пишется с заглавной буквы
+// https://mongoosejs.com/docs/schematypes.html
+module.exports = mongoose.model("User", userSchema);
