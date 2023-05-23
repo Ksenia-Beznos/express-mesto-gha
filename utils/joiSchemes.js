@@ -1,5 +1,5 @@
 const { Segments, Joi } = require('celebrate');
-const validUrl = require('valid-url');
+const validURL = require('valid-url');
 
 const cardValidation = {
   [Segments.BODY]: Joi.object().keys({
@@ -13,8 +13,8 @@ const cardValidation = {
       }),
     link: Joi.string()
       .custom((value, helpers) => {
-        if (!validUrl.isWebUri(value)) {
-          return helpers.error('any.invalid');
+        if (!validURL.isWebUri(value)) {
+          return helpers.error("any.invalid");
         }
         return value;
       })
@@ -76,8 +76,8 @@ const userValidation = {
     }),
     avatar: Joi.string()
       .custom((value, helpers) => {
-        if (!validUrl.isWebUri(value)) {
-          return helpers.error('any.invalid');
+        if (!validURL.isWebUri(value)) {
+          return helpers.error("any.invalid");
         }
         return value;
       })
@@ -120,8 +120,8 @@ const userUpdateValidation = {
     }),
     avatar: Joi.string()
       .custom((value, helpers) => {
-        if (!validUrl.isWebUri(value)) {
-          return helpers.error('any.invalid');
+        if (!validURL.isWebUri(value)) {
+          return helpers.error("any.invalid");
         }
         return value;
       })

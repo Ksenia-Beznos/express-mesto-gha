@@ -32,6 +32,7 @@ const createUser = async (req, res, next) => {
     const {
       name, about, avatar, email, password,
     } = req.body;
+
     const hashPass = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
@@ -40,6 +41,7 @@ const createUser = async (req, res, next) => {
       email,
       password: hashPass,
     });
+    console.log(user);
     if (!user) {
       throw new Error404('Пользователь не создан');
     } else {
