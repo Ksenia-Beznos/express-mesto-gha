@@ -14,7 +14,7 @@ const {
 
 const { userValidation, userUpdateValidation } = require("../utils/joiSchemes");
 
-router.post("/signup", createUser);
+router.post("/signup", celebrate(userValidation), createUser);
 router.post("/signin", celebrate(userValidation), login);
 router.get("/users", auth, getUsers);
 router.get("/users/me", auth, getAboutMe);
