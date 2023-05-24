@@ -44,6 +44,4 @@ const userSchema = new mongoose.Schema(
   { versionKey: false },
 );
 
-// в официальной документации название схемы пишется с заглавной буквы
-// https://mongoosejs.com/docs/schematypes.html
 module.exports = mongoose.model('User', userSchema);
