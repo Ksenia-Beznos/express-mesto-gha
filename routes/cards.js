@@ -10,10 +10,13 @@ const {
   removeLike,
 } = require('../controllers/cards');
 
-const { cardValidationId, cardValidation } = require('../utils/joiSchemes');
+const {
+  cardValidationId,
+  cardCreateValidation,
+} = require('../utils/joiSchemes');
 
 router.get('/cards', auth, getCards);
-router.post('/cards', auth, celebrate(cardValidation), createCard);
+router.post('/cards', auth, celebrate(cardCreateValidation), createCard);
 router.delete('/cards/:id', auth, celebrate(cardValidationId), deleteCard);
 router.put('/cards/:id/likes', auth, celebrate(cardValidationId), addLike);
 router.delete(
