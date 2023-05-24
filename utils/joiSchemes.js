@@ -26,7 +26,7 @@ const cardValidation = {
       .required(),
   }),
   [Segments.PARAMS]: Joi.object().keys({
-    id: Joi.string().required().length(24).hex().messages({
+    id: Joi.string().length(24).hex().messages({
       "string.base": 'Поле "cardId" должно быть строкой',
       "string.empty": 'Поле "cardId" должно быть заполнено',
       "string.length": 'Поле "cardId" должно быть длиной 24 символа',
@@ -38,7 +38,7 @@ const cardValidation = {
 
 const cardValidationId = {
   [Segments.PARAMS]: Joi.object().keys({
-    id: Joi.string().required().length(24).hex().messages({
+    id: Joi.string().length(24).hex().messages({
       "string.base": 'Поле "cardId" должно быть строкой',
       "string.empty": 'Поле "cardId" должно быть заполнено',
       "string.length": 'Поле "cardId" должно быть длиной 24 символа',
@@ -50,7 +50,7 @@ const cardValidationId = {
 
 const userValidation = {
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().required().length(24).hex().messages({
+    id: Joi.string().length(24).hex().messages({
       "string.base": 'Поле "userId" должно быть строкой',
       "string.empty": 'Поле "userId" должно быть заполнено',
       "string.length": 'Поле "userId" должно быть длиной 24 символа',
