@@ -20,7 +20,7 @@ const {
 } = require('../utils/joiSchemes');
 
 router.post('/signup', celebrate(userCreateValidation), createUser);
-router.post('/signin', celebrate(userValidation), login);
+router.post("/signin", celebrate(userCreateValidation), login);
 router.get('/users', auth, getUsers);
 router.get('/users/me', auth, getAboutMe);
 router.get('/users/:id', auth, celebrate(userValidation), getUserById);
